@@ -89,7 +89,6 @@
             this.window.Size = new System.Drawing.Size(435, 183);
             this.window.TabIndex = 1;
             this.window.Text = "";
-
             // 
             // dig0
             // 
@@ -679,6 +678,7 @@
             this.display.TabIndex = 43;
             this.display.Text = "0";
             this.display.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.display.WordWrap = false;
             // 
             // SciCal
             // 

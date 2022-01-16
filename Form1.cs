@@ -18,6 +18,7 @@ namespace ScientificCalculator
         public SciCal()
         {
             InitializeComponent();
+            display.Focus();
         }
 
         private void Button_Click(object sender, EventArgs e)
@@ -101,6 +102,21 @@ namespace ScientificCalculator
                     break;
 
             }
+
+        }
+
+        private void Display_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '\r':
+                    result.Text = Evaluate(display.Text);
+                    break;
+                default:
+                    display.Text += e.KeyChar;
+                    break;
+            }
+
         }
 
         private void ClearDisplay()
@@ -111,6 +127,15 @@ namespace ScientificCalculator
         private string Evaluate(string equation)
         {
             string result = string.Empty;
+            string[] trig = { "sin", "cos", "tan", "sin⁻¹", "cos⁻¹", "tan⁻¹" };
+
+            //parentheses evaluation
+            while (equation.Contains("("))
+            {
+                string subequation = equation.Substring(equation.IndexOf("("), equation.Contains(")") ? equation.IndexOf(")") + 1 - equation.IndexOf("(") : equation.Length - equation.IndexOf("("));
+                equation = equation.Replace(subequation, Evaluate(subequation.Replace("(", "").Replace(")", "")));
+            }
+
             char[] op = { '+', '-', '*', '/', '^', '%' };
 
             List<char> operators = new List<char>();
